@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require('path')
 const cp = require('child_process')
 const argv = require('yargs')
@@ -19,4 +21,4 @@ if (!program) {
   throw new Error(`There is no program assigned to handle the extension "${scriptExt}".`)
 }
 
-cp.execSync(`${program} ${scriptPath} ${scriptArgs}`, {stdio: 'inherit'})
+cp.execSync(`${program} ${scriptPath} ${scriptArgs}`, {cwd: __dirname, stdio: 'inherit'})

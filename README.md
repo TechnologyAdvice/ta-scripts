@@ -1,10 +1,10 @@
-scripts
-=======
+ta-scripts
+==========
 Reusable shell agnostic scripting so you can get your shtuff done.
 
 ## Install
 
-    $ npm i @technologyadvice/scripts -D
+    $ npm i @technologyadvice/ta-scripts -D
 
 ## Usage
 
@@ -13,7 +13,6 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 1. Script paths are relative to the repo root
 1. Just like npm scripts, use `--` to pass arguments to a script
 1. Make sure the env executing the script has all the env vars used in the script
-
 
 ## Examples
 
