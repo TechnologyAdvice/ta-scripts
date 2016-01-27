@@ -4,15 +4,11 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 
 ## Install
 
-```bash
-npm i @TechnologyAdvice/scripts -D
-```
+    $ npm i @TechnologyAdvice/scripts -D
 
 ## Usage
 
-```bash
-ta-script <path_to_script> -- [...script_args]
-```
+    $ ta-script <path_to_script> -- [...script_args]
 
 1. Script paths are relative to the repo root
 1. Just like npm scripts, use `--` to pass arguments to a script
@@ -21,11 +17,9 @@ ta-script <path_to_script> -- [...script_args]
 
 ## Examples
 
-### Sync FunnelAdvice to S3
+#### Sync FunnelAdvice to S3
 
-```bash
-ta-script "aws/s3_sync.sh" -- -d ./dist -b funneladvice.taplatform.net
-```
+    $ ta-script "aws/s3_sync.sh" -- -d ./dist -b funneladvice.taplatform.net
 
 ## Contribute
 
@@ -34,8 +28,6 @@ Scripts can be written in `bash` or `node`.
 
 ## Deploy
 
-```bash
-npm version <major|minor|patch>   # bump package, commit, creates tag
-git push && git push --tags       # put it on github
-npm publish                       # put it on npm
-```
+    npm version <major|minor|patch>   # bump package, commit, creates tag
+    git push && git push --tags       # put it on github
+    npm publish                       # put it on npm
