@@ -12,7 +12,8 @@ const programMap = {
   '.js': 'node',
 }
 
-const scriptPath = argv._.shift()
+
+const scriptPath = path.resolve(__dirname, argv._.shift())
 const scriptArgs = argv._.join(' ')
 const scriptExt = path.extname(scriptPath)
 const program = programMap[scriptExt]
@@ -21,4 +22,4 @@ if (!program) {
   throw new Error(`There is no program assigned to handle the extension "${scriptExt}".`)
 }
 
-cp.execSync(`${program} ${scriptPath} ${scriptArgs}`, {cwd: __dirname, stdio: 'inherit'})
+cp.execSync(`${program} ${scriptPath} ${scriptArgs}`, {stdio: 'inherit'})
