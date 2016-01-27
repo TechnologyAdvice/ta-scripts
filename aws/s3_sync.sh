@@ -26,11 +26,11 @@ run() {
     echo "...awscli found"
   else
     echo "...installing awscli"
-    echo "> sudo pip install awscli"
+    sudo pip install awscli
   fi
 
   echo "...syncing with s3"
-  echo "> aws s3 sync ${DIRECTORY} s3://${BUCKET}/ --delete --acl public-read"
+  aws s3 sync ${DIRECTORY} s3://${BUCKET}/ --delete --acl public-read
 }
 
 # get opts
