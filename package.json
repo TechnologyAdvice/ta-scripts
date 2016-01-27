@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/TechnologyAdvice/scripts.git"
   },
-  "author": "",
+  "author": "TechnologyAdvice <devteam@technologyadvice.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TechnologyAdvice/scripts/issues"
