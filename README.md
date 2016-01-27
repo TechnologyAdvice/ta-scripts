@@ -1,37 +1,41 @@
-ta-scripts
-==========
-Scripts you can curl to get your shtuff done.
+scripts
+=======
+Reusable shell agnostic scripting so you can get your shtuff done.
+
+## Install
+
+```bash
+npm i @TechnologyAdvice/scripts -D
+```
 
 ## Usage
 
-1. Get `tadeploy`'s `scripts` personal access token into your environment.
-   This example assumes you've exported it as `GITHUB_TOKEN`.
-
-1. Create a helper function to run scripts and pass handle arguments:
-
-  ```bash
-  taScript() {
-    local script="$1"
-    local url="https://api.github.com/repos/TechnologyAdvice/scripts/contents/$script"
-    local auth_header="Authorization: token $GITHUB_TOKEN"
-    local accept_header="Accept: application/vnd.github.v3.raw"
-    shift # remove first arg, we'll pass remaining args to the script
-    bash <(curl -fsSL ${url} -H "$auth_header" -H "$accept_header") "$@"
-  }
-  ```
-
-### Example
-
-Make sure your env has all the env vars used in the script or else the script will fail.
-
-**Deploy Unity Staging**
-
 ```bash
-taScript "circle_ci/deploy_app.sh" -e staging -d ./dist -b staging-unity.taplatform.net
+ta-script <path_to_script> -- [...script_args]
 ```
 
-**Deploy FunnelAdvice Production**
+1. Script paths are relative to the repo root
+1. Just like npm scripts, use `--` to pass arguments to a script
+1. Make sure the env executing the script has all the env vars used in the script
+
+
+## Examples
+
+### Sync FunnelAdvice to S3
 
 ```bash
-taScript "circle_ci/deploy_app.sh" -e production -d ./dist -b funneladvice.taplatform.net
+ta-script "aws/s3_sync.sh" -- -d ./dist -b funneladvice.taplatform.net
+```
+
+## Contribute
+
+Create a script and/or directory
+Scripts can be written in `bash` or `node`.
+
+## Deploy
+
+```bash
+npm version <major|minor|patch>   # bump package, commit, creates tag
+git push && git push --tags       # put it on github
+npm publish                       # put it on npm
 ```
