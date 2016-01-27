@@ -4,7 +4,7 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 
 ## Install
 
-    $ npm i @TechnologyAdvice/scripts -D
+    $ npm i @technologyadvice/scripts -D
 
 ## Usage
 

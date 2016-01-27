@@ -1,5 +1,5 @@
 {
-  "name": "@TechnologyAdvice/scripts",
+  "name": "@technologyadvice/scripts",
   "version": "1.0.0",
   "description": "CI/CD scripts",
   "main": "index.js",
