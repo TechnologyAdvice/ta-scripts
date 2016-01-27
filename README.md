@@ -23,11 +23,16 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 
 ## Contribute
 
-Create a script and/or directory
-Scripts can be written in `bash` or `node`.
+1. Clone this repo
+1. Create a branch
+1. Add a script
+1. Open a PR
 
 ## Deploy
 
+After merging a new PR:
+
+    checkout master && git pull       # get the lastest master 
     npm version <major|minor|patch>   # bump package, commit, creates tag
     git push && git push --tags       # put it on github
     npm publish                       # put it on npm
