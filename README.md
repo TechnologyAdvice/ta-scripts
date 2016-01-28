@@ -43,6 +43,6 @@ To test your scripts, run them with the cli:
 
 On the latest clean `master`:
 
-    npm run release-major
-    npm run release-minor
-    npm run release-patch
+    npm run release:major
+    npm run release:minor
+    npm run release:patch
