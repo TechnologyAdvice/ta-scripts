@@ -9,7 +9,6 @@
 usage() {
   echo ""
   echo "  Usage: bash $0 <major|minor|patch>"
-  echo ""
 }
 
 run() {
