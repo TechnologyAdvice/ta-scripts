@@ -35,4 +35,4 @@ To test your scripts, run them with the cli:
 
 On the latest clean `master`:
 
-    $ bash release.sh <major|minor|patch>
+    $ bash npm/release.sh <major|minor|patch>
