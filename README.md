@@ -16,9 +16,17 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 
 ## Examples
 
-#### Sync FunnelAdvice to S3
+#### S3 Sync
 
-    $ ta-script "aws/s3_sync.sh" -- -d ./dist -b funneladvice.taplatform.net
+Sync local assets to a publicly readable bucket.
+
+    $ ta-script aws/s3_sync.sh -- -d ./local-dir -b s3-bucket
+
+#### Circle CI Changelog
+
+Create a CHANGELOG.md in the root of the project for the current build _user_ and _repo_.
+
+    $ ta-script circle_ci/create_changelog.sh
 
 ## Contribute
 
