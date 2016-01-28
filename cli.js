@@ -12,7 +12,6 @@ const programMap = {
   '.js': 'node',
 }
 
-
 const scriptPath = path.resolve(__dirname, argv._.shift())
 const scriptArgs = argv._.join(' ')
 const scriptExt = path.extname(scriptPath)

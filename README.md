@@ -27,6 +27,10 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 1. Add a script
 1. Open a PR
 
+To test your scripts, run them with the cli:
+
+    $ node cli.js <path-to-script>
+
 ## Deploy
 
 After merging a new PR:
