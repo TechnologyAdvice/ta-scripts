@@ -21,17 +21,17 @@ This means you don't need to worry about which shell to use, nor file extensions
 
 ## Examples
 
-#### S3 Sync
-
-Sync local assets to a publicly readable bucket.
-
-    $ ta-script aws/s3_sync -- -d ./local-dir -b s3-bucket
-
 #### Circle CI Changelog
 
 Create a CHANGELOG.md in the root of the project for the current build _user_ and _repo_.
 
     $ ta-script circle_ci/create_changelog
+
+#### S3 Sync
+
+Sync local assets to a publicly readable bucket.
+
+    $ ta-script aws/s3_sync -- -d ./local-dir -b s3-bucket
 
 ## Contribute
 
