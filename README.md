@@ -33,9 +33,6 @@ To test your scripts, run them with the cli:
 
 ## Deploy
 
-After merging a new PR:
+On the latest clean `master`:
 
-    checkout master && git pull       # get the lastest master 
-    npm version <major|minor|patch>   # bump package, commit, creates tag
-    git push && git push --tags       # put it on github
-    npm publish                       # put it on npm
+    $ bash release.sh <major|minor|patch>
