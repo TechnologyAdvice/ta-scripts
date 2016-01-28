@@ -39,8 +39,10 @@ To test your scripts, run them with the cli:
 
     $ node cli.js <path-to-script>
 
-## Deploy
+### Releasing
 
 On the latest clean `master`:
 
-    $ bash npm/release.sh <major|minor|patch>
+    npm run release-major
+    npm run release-minor
+    npm run release-patch

@@ -7,7 +7,10 @@
     "ta-script": "./cli.js"
   },
   "scripts": {
-    "test": "echo \"Sure, it passed :/ ...\" && exit 0"
+    "test": "echo \"Sure, it passed :/ ...\" && exit 0",
+    "release-major": "bash npm/release.sh major",
+    "release-minor": "bash npm/release.sh minor",
+    "release-patch": "bash npm/release.sh patch"
   },
   "repository": {
     "type": "git",
