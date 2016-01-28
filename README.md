@@ -1,6 +1,11 @@
 ta-scripts
 ==========
-Reusable shell agnostic scripting so you can get your shtuff done.
+Managing separate scripts on multiple projects is not DRY nor maintainable.
+This is a place to house your reusable scripts.
+
+ta-scripts are installed with npm, so they are versioned.
+A CLI is also included so you can run scripts with a single command.
+This means you don't need to worry about which shell to use, nor file extensions, nor heavily nested paths.
 
 ## Install
 
@@ -20,13 +25,13 @@ Reusable shell agnostic scripting so you can get your shtuff done.
 
 Sync local assets to a publicly readable bucket.
 
-    $ ta-script aws/s3_sync.sh -- -d ./local-dir -b s3-bucket
+    $ ta-script aws/s3_sync -- -d ./local-dir -b s3-bucket
 
 #### Circle CI Changelog
 
 Create a CHANGELOG.md in the root of the project for the current build _user_ and _repo_.
 
-    $ ta-script circle_ci/create_changelog.sh
+    $ ta-script circle_ci/create_changelog
 
 ## Contribute
 
