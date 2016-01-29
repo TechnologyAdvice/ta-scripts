@@ -16,41 +16,36 @@ const extProgramMap = {
   '.js': 'node',
 }
 
-const ifFileExists = filePath => {
-  return new Promise((resolve, reject) => {
-    try {
-      fs.statSync(filePath)
-      resolve(filePath)
-    } catch (e) {
-      reject(e)
-    }
-  })
-}
-
 const executeScript = (script, args) => {
   const ext = path.extname(script)
   const program = extProgramMap[ext]
+  if (!program) throw new Error(`ta-script has no program assigned to handle the "${ext}" ext`)
   cp.execSync(`${program} ${script} ${args}`, {stdio: 'inherit'})
 }
 
+// looks for a script in basedir under the scriptPath.
+// if not found, looks for script matching all extensions in extProgramMap
 const searchForScript = (basedir, scriptPath) => {
   return new Promise((resolve, reject) => {
-    let failedPaths = []
-    Object.keys(extProgramMap).some(ext => {
+    const triedPaths = []
+    const extensions = [''].concat(Object.keys(extProgramMap));
+
+    extensions.forEach(ext => {
       const tryPath = path.resolve(basedir, `${scriptPath}${ext}`)
       try {
         fs.statSync(tryPath)
         resolve(tryPath)
       } catch (e) {
-        failedPaths.push(tryPath)
+        triedPaths.push(tryPath)
       }
     })
-    reject(failedPaths)
-  })
+    reject(triedPaths)
+  });
 }
 
-const throwSearchFail = (script, searchedPaths) => {
-  throw new Error(`Could not find "${script}" in:\n\n${searchedPaths.join('\n')}\n`)
+const throwSearchFail = (script, triedPaths) => {
+  console.log(triedPaths)
+  throw new Error(`Could not find "${script}" in:\n\n${triedPaths.join('\n')}\n`)
 }
 
 // ----------------------------------------
@@ -60,12 +55,8 @@ const throwSearchFail = (script, searchedPaths) => {
 const scriptPath = argv._.shift()
 const scriptArgs = argv._.join(' ')
 
-ifFileExists(scriptPath)
-  .then(res => executeScript(scriptPath, scriptArgs))
-  .catch(err => {
-    searchForScript(__dirname, scriptPath)
-      .then(
-        foundPath => executeScript(foundPath, scriptArgs),
-        searched => throwSearchFail(scriptPath, searched)
-      )
-  })
+searchForScript(__dirname, scriptPath)
+  .then(
+    foundPath => executeScript(foundPath, scriptArgs),
+    triedPaths => throwSearchFail(scriptPath, triedPaths)
+  )
