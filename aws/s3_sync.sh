@@ -7,7 +7,7 @@
 
 usage() {
   echo ""
-  echo "  USAGE:  bash s3_sync.sh -d <directory> -b <bucket>"
+  echo "  USAGE:  bash $0 -d <directory> -b <bucket>"
   echo ""
   echo "  OPTIONS:"
   echo "          -d    local directory to sync to S3 bucket"
