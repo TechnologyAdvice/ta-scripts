@@ -13,10 +13,9 @@ This means you don't need to worry about which shell to use, nor file extensions
 
 ## Usage
 
-    $ ta-script <path_to_script> -- [...script_args]
+    $ ta-script <path_to_script> [...script_args]
 
 1. Script paths are relative to the repo root
-1. Just like npm scripts, use `--` to pass arguments to a script
 1. Make sure the env executing the script has all the env vars used in the script
 
 ## Examples
@@ -29,13 +28,13 @@ Create a CHANGELOG.md in the root of the project for the current build _user_ an
 
 Private repo?  Add the `tadeploy` user's personal access token:
 
-    $ ta-script circle_ci/create_changelog -- -t <token_string>
+    $ ta-script circle_ci/create_changelog -t <token_string>
 
 #### S3 Sync
 
 Sync local assets to a publicly readable bucket.
 
-    $ ta-script aws/s3_sync -- -d ./local-dir -b s3-bucket
+    $ ta-script aws/s3_sync -d ./local-dir -b s3-bucket
 
 ## Contribute
 

@@ -7,7 +7,7 @@ const path = require('path')
 const Promise = require('bluebird')
 const cp = require('child_process')
 const argv = require('yargs')
-  .usage('Usage: $0 <path> -- [...args]')
+  .usage('Usage: $0 <path> [...args]')
   .demand(1)
   .argv
 
@@ -52,8 +52,12 @@ const throwSearchFail = (script, triedPaths) => {
 // Run
 // ----------------------------------------
 
-const scriptPath = argv._.shift()
-const scriptArgs = argv._.join(' ')
+const scriptPath = process.argv[2]
+const scriptArgs = process.argv.slice(3)
+  // for backward compatibility remove '--' first arg
+  // it was used as the first arg to separate script args from cli args
+  .filter((arg, i) => !(i === 0 && arg === '--'))
+  .join(' ')
 
 searchForScript(__dirname, scriptPath)
   .then(
