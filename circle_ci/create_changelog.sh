@@ -19,7 +19,7 @@ error() {
 }
 
 run() {
-  local endpoint="github-changelog-api.herokuapp.com/TechnologyAdvice/stardust"
+  local endpoint="github-changelog-api.herokuapp.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
   [ "$token" ] && endpoint+="?token=$token"
 
   curl -X POST ${endpoint} > CHANGELOG.md
