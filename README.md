@@ -17,6 +17,7 @@ This means you don't need to worry about which shell to use, nor file extensions
 
 1. Script paths are relative to the repo root
 1. Make sure the env executing the script has all the env vars used in the script
+1. Extensions don't matter
 
 ## Examples
 
