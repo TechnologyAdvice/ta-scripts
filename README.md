@@ -3,9 +3,10 @@ ta-scripts
 Managing separate scripts on multiple projects is not DRY nor maintainable.
 This is a place to house your reusable scripts.
 
-ta-scripts are installed with npm, so they are versioned.
-A CLI is also included so you can run scripts with a single command.
-This means you don't need to worry about which shell to use, nor file extensions, nor heavily nested paths.
+&check; npm installed, shared, and versioned scripts  
+&check; cli `ta-script` executes `bash` and `node` scripts  
+&check; execute scripts without specifying extensions  
+&check; get global benefit from company scripting skills and updates  
 
 ## Install
 
@@ -13,11 +14,24 @@ This means you don't need to worry about which shell to use, nor file extensions
 
 ## Usage
 
-    $ ta-script <path_to_script> [...script_args]
+    $ ta-script <script> [...args]
 
 1. Script paths are relative to the repo root
 1. Make sure the env executing the script has all the env vars used in the script
 1. Extensions don't matter
+
+### How does it work?
+
+#### `ta-script`
+
+##### Search
+This is a dead simple cli that traverses this repo looking for the `<script>` passed to it.
+If found, it passes all the args to the script and executes it with the `[...args]`.
+
+##### Extensionless
+Do not include file extensions when running `ta-script`.
+It will execute the script with the shell that matches the script file extension.
+This allows switching the script between shells overtime without updating use of `ta-script`.
 
 ## Examples
 
@@ -29,13 +43,13 @@ Create a CHANGELOG.md in the root of the project for the current build _user_ an
 
 Private repo?  Add the `tadeploy` user's personal access token:
 
-    $ ta-script circle_ci/create_changelog -t <token_string>
+    $ ta-script circle_ci/create_changelog -t <token>
 
 #### S3 Sync
 
 Sync local assets to a publicly readable bucket.
 
-    $ ta-script aws/s3_sync -d ./local-dir -b s3-bucket
+    $ ta-script aws/s3_sync -d <local-dir> -b <s3-bucket>
 
 ## Contribute
 
