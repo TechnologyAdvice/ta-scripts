@@ -64,3 +64,4 @@ searchForScript(__dirname, scriptPath)
     foundPath => executeScript(foundPath, scriptArgs),
     triedPaths => throwSearchFail(scriptPath, triedPaths)
   )
+  .catch(() => process.exit(1))
