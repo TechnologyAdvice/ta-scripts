@@ -20,7 +20,7 @@ const executeScript = (script, args) => {
   const ext = path.extname(script)
   const program = extProgramMap[ext]
   if (!program) throw new Error(`ta-script has no program assigned to handle the "${ext}" ext`)
-  cp.execSync(`${program} ${script} ${args}`, {stdio: 'inherit'})
+  cp.execSync(`${program} ${script} ${args}`, { stdio: 'inherit' })
 }
 
 // looks for a script in basedir under the scriptPath.
@@ -39,13 +39,8 @@ const searchForScript = (basedir, scriptPath) => {
         triedPaths.push(tryPath)
       }
     })
-    reject(triedPaths)
+    throw new Error(`Could not find "${scriptPath}" in:\n\n${triedPaths.join('\n')}\n`)
   });
-}
-
-const throwSearchFail = (script, triedPaths) => {
-  console.log(triedPaths)
-  throw new Error(`Could not find "${script}" in:\n\n${triedPaths.join('\n')}\n`)
 }
 
 // ----------------------------------------
@@ -60,8 +55,8 @@ const scriptArgs = process.argv.slice(3)
   .join(' ')
 
 searchForScript(__dirname, scriptPath)
-  .then(
-    foundPath => executeScript(foundPath, scriptArgs),
-    triedPaths => throwSearchFail(scriptPath, triedPaths)
-  )
-  .catch(() => process.exit(1))
+  .then(foundPath => executeScript(foundPath, scriptArgs))
+  .catch(e => {
+    console.error(e.toString())
+    process.exit(1)
+  })
