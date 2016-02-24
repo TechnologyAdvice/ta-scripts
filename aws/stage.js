@@ -91,7 +91,7 @@ function getStagingUrl(bucket, region) {
 
   // restore fatal config and echo url
   sh.config.fatal = oldFatal
-  sh.echo(`${bucket}.s3-website-${region}.amazonaws.com`)
+  sh.echo(`http://${bucket}.s3-website-${region}.amazonaws.com`)
 }
 
 function stage(dir, bucket, region) {
