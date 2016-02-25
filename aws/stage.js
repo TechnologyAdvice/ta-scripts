@@ -13,6 +13,7 @@ const argv = yargs
   .example('$0 -r unity -b bug/foo -d dist', 'stage dist contents as unity bug/foo')
   .example('$0 -r unity -b bug/foo -t', 'tear down staging for unity bug/foo')
   .example('$0 -r unity -b bug/foo -g', 'get the url for unity bug/foo')
+  .example('$0 -r unity -b bug/foo -n', 'get the bucket for unity bug/foo')
   .option('r', {
     alias: 'repo',
     describe: 'name of the github repo',
