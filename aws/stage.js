@@ -48,11 +48,17 @@ const argv = yargs
     requiresArg: false,
     type: 'boolean',
   })
+  .option('n', {
+    alias: 'get-bucket-name',
+    describe: 'get the bucket name for a staged repo/branch',
+    demand: false,
+    requiresArg: false,
+    type: 'boolean',
+  })
   .check((argv, options) => {
-    // directory XOR tear-down
-    const requireOne = [argv.directory, argv.tearDown, argv.getUrl]
-    if (requireOne.filter(arg => !!arg).length !== 1) {
-      throw new Error('Specify either --directory, --tear-down, or --get-url options.')
+    const requireOne = ['directory', 'tear-down', 'get-url', 'get-bucket-name']
+    if (requireOne.filter(opt => !!argv[opt]).length !== 1) {
+      throw new Error(`Specify either: ${requireOne.map(r => `--${r}`).join(', ')}`)
     }
 
     return true
@@ -62,23 +68,11 @@ const argv = yargs
   .argv
 
 // ------------------------------------
-// Run
+// Methods
 // ------------------------------------
 
-// Ensure aws cli
-if (!sh.which('aws')) sh.exec('sudo pip install awscli', { silent: true })
-
-const REGION = 'us-east-1'
-
-// -r myRepo -b feature/foo-bar => 'my-repo-feature-foo-bar'
-const bucket = `staging-${argv.repo}-${argv.branch}`
-  .replace(/[\W|_]/gi, '-')                 // non-word characters and '_' to '-'
-  .replace(/[A-Z]/g, match => `-${match}`)  // prefix capitals with '-'
-  .toLowerCase()                            // all lowercase
-
-// if bucket exists, echo it's website url, else fail
-function getStagingUrl(bucket, region) {
-  // disable fatal so we can log any error before exiting
+const assertWebsite = (bucket) => {
+// disable fatal so we can log any error before exiting
   const oldFatal = sh.config.fatal
   sh.config.fatal = false
 
@@ -91,7 +85,19 @@ function getStagingUrl(bucket, region) {
 
   // restore fatal config and echo url
   sh.config.fatal = oldFatal
-  sh.echo(`http://${bucket}.s3-website-${region}.amazonaws.com`)
+}
+
+// -r myRepo -b feature/foo-bar => 'my-repo-feature-foo-bar'
+const getBucketName = (repo, branch) => {
+  return `staging-${repo}-${branch}`
+    .replace(/[\W|_]/gi, '-')                 // non-word characters and '_' to '-'
+    .replace(/[A-Z]/g, match => `-${match}`)  // prefix capitals with '-'
+    .toLowerCase()                            // all lowercase
+}
+
+// if bucket exists, echo it's website url, else fail
+function getStagingUrl(bucket, region) {
+  return `http://${bucket}.s3-website-${region}.amazonaws.com`
 }
 
 function stage(dir, bucket, region) {
@@ -101,8 +107,6 @@ function stage(dir, bucket, region) {
   sh.exec(`aws s3api create-bucket --bucket ${bucket} --acl public-read --region ${region}`)
   sh.exec(`aws s3 website s3://${bucket}/ --index-document index.html --error-document index.html`)
   sh.exec(`aws s3 sync ${dir} s3://${bucket}/ --delete --acl public-read`)
-
-  getStagingUrl(bucket, region)
 }
 
 function tearDown(bucket) {
@@ -111,6 +115,29 @@ function tearDown(bucket) {
   sh.exec(`aws s3api delete-bucket --bucket ${bucket}`)
 }
 
-if (argv.directory) stage(argv.directory, bucket, REGION)
-if (argv.tearDown) tearDown(bucket)
-if (argv.getUrl) getStagingUrl(bucket, REGION)
+// ------------------------------------
+// Run
+// ------------------------------------
+
+// Ensure aws cli
+if (!sh.which('aws')) sh.exec('sudo pip install awscli', { silent: true })
+
+const REGION = 'us-east-1'
+const BUCKET = getBucketName(argv.repo, argv.branch)
+
+if (argv.directory) {
+  stage(argv.directory, BUCKET, REGION)
+  sh.echo(getStagingUrl(BUCKET, REGION))
+}
+if (argv.tearDown) {
+  assertWebsite(BUCKET)
+  tearDown(BUCKET)
+}
+if (argv.getUrl) {
+  assertWebsite(BUCKET)
+  sh.echo(getStagingUrl(BUCKET, REGION))
+}
+if (argv.getBucketName) {
+  assertWebsite(BUCKET)
+  sh.echo(BUCKET)
+}
