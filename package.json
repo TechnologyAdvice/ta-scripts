@@ -24,7 +24,6 @@
   "homepage": "https://github.com/TechnologyAdvice/scripts#readme",
   "dependencies": {
     "bluebird": "^3.1.5",
-    "flow-bin": "^0.21.0",
     "shelljs": "^0.6.0",
     "yargs": "^3.32.0"
   }
