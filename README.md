@@ -41,7 +41,7 @@ Create a CHANGELOG.md in the root of the project for the current build _user_ an
 
     $ ta-script circle_ci/create_changelog
 
-Private repo?  Add the `tadeploy` user's personal access token:
+Private repo?  Add a personal access token:
 
     $ ta-script circle_ci/create_changelog -t <token>
 
