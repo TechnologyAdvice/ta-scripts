@@ -10,7 +10,7 @@ This is a place to house your reusable scripts.
 
 ## Install
 
-    $ npm i @technologyadvice/ta-scripts -D
+    $ npm i ta-scripts -D
 
 ## Usage
 
