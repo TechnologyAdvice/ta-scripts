@@ -10,7 +10,7 @@ This is a place to house your reusable scripts.
 
 ## Install
 
-    $ npm i @technologyadvice/ta-scripts -D
+    $ npm i ta-scripts -D
 
 ## Usage
 
@@ -41,7 +41,7 @@ Create a CHANGELOG.md in the root of the project for the current build _user_ an
 
     $ ta-script circle_ci/create_changelog
 
-Private repo?  Add the `tadeploy` user's personal access token:
+Private repo?  Add a personal access token:
 
     $ ta-script circle_ci/create_changelog -t <token>
 
