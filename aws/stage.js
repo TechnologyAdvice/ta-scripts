@@ -93,6 +93,7 @@ const getBucketName = (repo, branch) => {
   return `staging-${repo}-${branch}`
     .replace(/[\W|_]/gi, '-')                 // non-word characters and '_' to '-'
     .replace(/[A-Z]/g, match => `-${match}`)  // prefix capitals with '-'
+    .slice(0, 62)                             // s3 max bucket name length
     .toLowerCase()                            // all lowercase
 }
 
