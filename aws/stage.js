@@ -57,8 +57,15 @@ const argv = yargs
     requiresArg: false,
     type: 'boolean',
   })
+  .option('o', {
+    alias: 'get-object-path',
+    describe: 'get the object path for a staged repo/branch',
+    demand: false,
+    requiresArg: false,
+    type: 'boolean',
+  })
   .check((argv, options) => {
-    const requireOne = ['directory', 'tear-down', 'get-url', 'get-bucket-name']
+    const requireOne = ['directory', 'tear-down', 'get-url', 'get-bucket-name', 'get-object-path']
     if (requireOne.filter(opt => !!argv[opt]).length !== 1) {
       throw new Error(`Specify either: ${requireOne.map(r => `--${r}`).join(', ')}`)
     }
@@ -157,4 +164,7 @@ if (argv.getUrl) {
 }
 if (argv.getBucketName) {
   sh.echo(BUCKET_NAME)
+}
+if (argv.getObjectPath) {
+  sh.echo(getStagedPath(repo, branch))
 }
