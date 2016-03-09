@@ -2,6 +2,7 @@
 'use strict'
 
 const sh = require('shelljs')
+const path = require('path')
 const yargs = require('yargs')
 
 // exit on any error, like bash 'set -e'
@@ -56,8 +57,15 @@ const argv = yargs
     requiresArg: false,
     type: 'boolean',
   })
+  .option('o', {
+    alias: 'get-object-path',
+    describe: 'get the object path for a staged repo/branch',
+    demand: false,
+    requiresArg: false,
+    type: 'boolean',
+  })
   .check((argv, options) => {
-    const requireOne = ['directory', 'tear-down', 'get-url', 'get-bucket-name']
+    const requireOne = ['directory', 'tear-down', 'get-url', 'get-bucket-name', 'get-object-path']
     if (requireOne.filter(opt => !!argv[opt]).length !== 1) {
       throw new Error(`Specify either: ${requireOne.map(r => `--${r}`).join(', ')}`)
     }
@@ -71,50 +79,67 @@ const argv = yargs
 // ------------------------------------
 // Methods
 // ------------------------------------
+const BUCKET_NAME = 'deweybot'
+const REPO_DIR = 'qa/src'
 
-const assertWebsite = (bucket) => {
-// disable fatal so we can log any error before exiting
-  const oldFatal = sh.config.fatal
-  sh.config.fatal = false
+/**
+ * Returns the relative path for a given staged repo and branch.
+ * @param {String} repo The GitHub repo name.
+ * @param {String} branch The GitHub branch name.
+ * @returns {*}
+ */
+const getStagedPath = (repo, branch) => `${REPO_DIR}/${repo}/${branch}`
 
-  // silently verify bucket, or fail
-  const website = sh.exec(`aws s3api get-bucket-website --bucket ${bucket}`, { silent: true })
-  if (website.code !== 0) {
-    console.error(website.stderr || website.stdout || sh.error())
-    process.exit(website.code)
-  }
+/**
+ * Returns the S3Uri for the given repo and branch.
+ * @param {String} repo The GitHub repo name.
+ * @param {String} branch The GitHub branch name.
+ * @returns {*}
+ */
+const getS3Uri = (repo, branch) => `s3://${BUCKET_NAME}/${getStagedPath(repo, branch)}`
 
-  // restore fatal config and echo url
-  sh.config.fatal = oldFatal
+/**
+ * Get the url for staged projects.
+ * @returns {String}
+ */
+const getStagingUrl = () => `http://deweybot.taplatform.net/qa`
+
+/**
+ * Stage assets in `dir` to a location generated from the `repo` and `branch`.
+ * @param {String} dir The local dir to sync.
+ * @param {String} repo The GitHub repo name.
+ * @param {String} branch The GitHub branch name.
+ */
+const stage = (dir, repo, branch) => {
+  const stagedPath = getStagedPath(repo, branch)
+  const newTagPath = `="/${stagedPath}/`
+  const absPathRegEx = /(="\/)(?!\/)/g
+
+  sh.cd(dir)
+  const indexFiles = sh.find('.').filter((file) => /\.html$/.test(file))
+
+  // recursively replace abs *.html attribute paths with S3Uri relative paths
+  sh.echo('...monkey patching html paths')
+  indexFiles.forEach((file) => sh.sed('-i', absPathRegEx, newTagPath, file))
+
+  // sync
+  const s3Uri = getS3Uri(repo, branch)
+  sh.echo('...syncing')
+  sh.exec(`aws s3 sync ./ ${s3Uri}/ --delete --acl public-read`)
+
+  // restore html files
+  sh.echo('...cleanup')
+  indexFiles.forEach((file) => sh.sed('-i', newTagPath, '="/', file))
 }
 
-// -r myRepo -b feature/foo-bar => 'my-repo-feature-foo-bar'
-const getBucketName = (repo, branch) => {
-  return `staging-${repo}-${branch}`
-    .replace(/[\W|_]/gi, '-')                 // non-word characters and '_' to '-'
-    .replace(/[A-Z]/g, match => `-${match}`)  // prefix capitals with '-'
-    .slice(0, 62)                             // s3 max bucket name length
-    .toLowerCase()                            // all lowercase
-}
-
-// if bucket exists, echo it's website url, else fail
-function getStagingUrl(bucket, region) {
-  return `http://${bucket}.s3-website-${region}.amazonaws.com`
-}
-
-function stage(dir, bucket, region) {
-  // create bucket
-  // set static hosting
-  // sync dir
-  sh.exec(`aws s3api create-bucket --bucket ${bucket} --acl public-read --region ${region}`)
-  sh.exec(`aws s3 website s3://${bucket}/ --index-document index.html --error-document index.html`)
-  sh.exec(`aws s3 sync ${dir} s3://${bucket}/ --delete --acl public-read`)
-}
-
-function tearDown(bucket) {
-  // empty bucket and delete it
-  sh.exec(`aws s3 rm s3://${bucket}/ --recursive`)
-  sh.exec(`aws s3api delete-bucket --bucket ${bucket}`)
+/**
+ * Remove a project from staging.
+ * @param {String} repo The GitHub repo name.
+ * @param {String} branch The GitHub branch name.
+ */
+const tearDown = (repo, branch) => {
+  const s3Uri = getS3Uri(repo, branch)
+  sh.exec(`aws s3 rm ${s3Uri} --recursive`)
 }
 
 // ------------------------------------
@@ -124,22 +149,22 @@ function tearDown(bucket) {
 // Ensure aws cli
 if (!sh.which('aws')) sh.exec('sudo pip install awscli', { silent: true })
 
-const REGION = 'us-east-1'
-const BUCKET = getBucketName(argv.repo, argv.branch)
+const repo = argv.repo
+const branch = argv.branch
 
 if (argv.directory) {
-  stage(argv.directory, BUCKET, REGION)
-  sh.echo(getStagingUrl(BUCKET, REGION))
+  stage(argv.directory, repo, branch)
+  sh.echo(getStagingUrl())
 }
 if (argv.tearDown) {
-  assertWebsite(BUCKET)
-  tearDown(BUCKET)
+  tearDown(repo, branch)
 }
 if (argv.getUrl) {
-  assertWebsite(BUCKET)
-  sh.echo(getStagingUrl(BUCKET, REGION))
+  sh.echo(getStagingUrl())
 }
 if (argv.getBucketName) {
-  assertWebsite(BUCKET)
-  sh.echo(BUCKET)
+  sh.echo(BUCKET_NAME)
+}
+if (argv.getObjectPath) {
+  sh.echo(getStagedPath(repo, branch))
 }
