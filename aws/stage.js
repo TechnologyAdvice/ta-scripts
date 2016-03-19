@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
+const fs = require('fs')
 const sh = require('shelljs')
 const path = require('path')
 const yargs = require('yargs')
@@ -112,15 +113,18 @@ const getStagingUrl = () => `http://deweybot.taplatform.net/qa`
  */
 const stage = (dir, repo, branch) => {
   const stagedPath = getStagedPath(repo, branch)
-  const newTagPath = `="/${stagedPath}/`
-  const absPathRegEx = /(="\/)(?!\/)/g
-
+  const pathRegExp = /(href="|src=")\/?(?!\/)(.*?")/g
+  // cache file contents so we can restore them
+  const cache = {}
   sh.cd(dir)
   const indexFiles = sh.find('.').filter((file) => /\.html$/.test(file))
 
   // recursively replace abs *.html attribute paths with S3Uri relative paths
   sh.echo('...monkey patching html paths')
-  indexFiles.forEach((file) => sh.sed('-i', absPathRegEx, newTagPath, file))
+  indexFiles.forEach((file) => {
+    cache[file] = sh.cat(file)
+    sh.sed('-i', pathRegExp, (group, g1, g2) => `${g1}/${stagedPath}/${g2}`, file)
+  })
 
   // sync
   const s3Uri = getS3Uri(repo, branch)
@@ -129,7 +133,7 @@ const stage = (dir, repo, branch) => {
 
   // restore html files
   sh.echo('...cleanup')
-  indexFiles.forEach((file) => sh.sed('-i', newTagPath, '="/', file))
+  indexFiles.forEach((file) => fs.writeFileSync(file, cache[file], 'utf8'))
 }
 
 /**
