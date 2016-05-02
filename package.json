@@ -17,7 +17,7 @@
     "url": "git+https://github.com/TechnologyAdvice/scripts.git"
   },
   "author": "TechnologyAdvice <devteam@technologyadvice.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/TechnologyAdvice/scripts/issues"
   },
