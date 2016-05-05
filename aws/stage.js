@@ -123,7 +123,7 @@ const stage = (dir, repo, branch) => {
   sh.echo('...monkey patching html paths')
   indexFiles.forEach((file) => {
     cache[file] = sh.cat(file)
-    sh.sed('-i', pathRegExp, (group, g1, g2) => `${g1}/${stagedPath}/${g2}`, file)
+    sh.sed('-i', pathRegExp, (group, g1, g2) => `${g1}/${stagedPath}${g2 === '"' ? g2 : `/${g2}`}`, file)
   })
 
   // sync
