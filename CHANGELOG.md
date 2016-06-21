@@ -1,5 +1,51 @@
 # Change Log
 
+## [v2.4.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.0) (2016-06-21)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.3.3...v2.4.0)
+
+**Merged pull requests:**
+
+- yargs@4.7.1 untested ⚠️ [\#23](https://github.com/TechnologyAdvice/ta-scripts/pull/23) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update all dependencies 🌴 [\#21](https://github.com/TechnologyAdvice/ta-scripts/pull/21) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Allow owners who are not collaborators to release [\#20](https://github.com/TechnologyAdvice/ta-scripts/pull/20) ([levithomason](https://github.com/levithomason))
+
+## [v2.3.3](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.3.3) (2016-05-05)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.3.2...v2.3.3)
+
+**Merged pull requests:**
+
+- Fix aws/stage trailing slash [\#19](https://github.com/TechnologyAdvice/ta-scripts/pull/19) ([levithomason](https://github.com/levithomason))
+
+## [v2.3.2](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.3.2) (2016-04-29)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.3.1...v2.3.2)
+
+**Merged pull requests:**
+
+- Prevent half baked errored releases [\#18](https://github.com/TechnologyAdvice/ta-scripts/pull/18) ([levithomason](https://github.com/levithomason))
+
+## [v2.3.1](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.3.1) (2016-03-19)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.3.0...v2.3.1)
+
+**Merged pull requests:**
+
+- Monkey patch staged relative paths [\#17](https://github.com/TechnologyAdvice/ta-scripts/pull/17) ([levithomason](https://github.com/levithomason))
+
+## [v2.3.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.3.0) (2016-03-09)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.2.0...v2.3.0)
+
+**Merged pull requests:**
+
+- Update aws/stage for deweybot [\#16](https://github.com/TechnologyAdvice/ta-scripts/pull/16) ([levithomason](https://github.com/levithomason))
+- Handle s3 max bucket name len [\#15](https://github.com/TechnologyAdvice/ta-scripts/pull/15) ([levithomason](https://github.com/levithomason))
+
+## [v2.2.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.2.0) (2016-03-03)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.1.0...v2.2.0)
+
+**Merged pull requests:**
+
+- Indexr, recursive auto index [\#14](https://github.com/TechnologyAdvice/ta-scripts/pull/14) ([levithomason](https://github.com/levithomason))
+- Descope npm package [\#13](https://github.com/TechnologyAdvice/ta-scripts/pull/13) ([levithomason](https://github.com/levithomason))
+
 ## [v2.1.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.1.0) (2016-02-25)
 [Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.0.0...v2.1.0)
 
