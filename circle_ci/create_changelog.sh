@@ -32,7 +32,7 @@ run() {
   if ${changelog_was_updated}; then
     git add CHANGELOG.md
     git commit -n -m "update CHANGELOG.md by $CIRCLE_USERNAME [ci skip]"
-    git push origin ${CIRCLE_BRANCH}
+    git push -f origin ${CIRCLE_BRANCH}
   fi
 }
 
