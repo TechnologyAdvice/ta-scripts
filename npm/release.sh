@@ -20,7 +20,8 @@ print() {
 run() {
   local version=$1
 
-  # ensure git is ready
+  # ensure git is ready, fetch before making comparisons
+  git fetch
   local local_sha=$(git rev-parse @)
   local remote_sha=$(git rev-parse @{u})
   local base_sha=$(git merge-base @ @{u})
