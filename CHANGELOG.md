@@ -1,5 +1,20 @@
 # Change Log
 
+## [v2.5.1](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.5.1) (2016-10-19)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.5.0...v2.5.1)
+
+**Merged pull requests:**
+
+- fix\(create-changelog\): update to new api [\#26](https://github.com/TechnologyAdvice/ta-scripts/pull/26) ([levithomason](https://github.com/levithomason))
+
+## [v2.5.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.5.0) (2016-10-19)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.4.3...v2.5.0)
+
+**Merged pull requests:**
+
+- chore\(circle\): add circle.yml [\#28](https://github.com/TechnologyAdvice/ta-scripts/pull/28) ([levithomason](https://github.com/levithomason))
+- feat\(auto-release\): add npm auto release script [\#27](https://github.com/TechnologyAdvice/ta-scripts/pull/27) ([levithomason](https://github.com/levithomason))
+
 ## [v2.4.3](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.3) (2016-08-21)
 [Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.4.2...v2.4.3)
 
