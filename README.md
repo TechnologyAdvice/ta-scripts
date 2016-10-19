@@ -1,5 +1,6 @@
-ta-scripts
-==========
+# ta-scripts
+[![Circle CI](https://img.shields.io/circleci/project/TechnologyAdvice/ta-scripts/master.svg?style=flat-square)](https://circleci.com/gh/TechnologyAdvice/ta-scripts/tree/master)
+
 Managing separate scripts on multiple projects is not DRY nor maintainable.
 This is a place to house your reusable scripts.
 
