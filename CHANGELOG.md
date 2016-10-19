@@ -1,5 +1,22 @@
 # Change Log
 
+## [v2.4.3](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.3) (2016-08-21)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.4.2...v2.4.3)
+
+**Merged pull requests:**
+
+- fix\(npm\): fetch before release [\#25](https://github.com/TechnologyAdvice/ta-scripts/pull/25) ([levithomason](https://github.com/levithomason))
+
+## [v2.4.2](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.2) (2016-07-04)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.4.1...v2.4.2)
+
+## [v2.4.1](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.1) (2016-06-27)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.4.0...v2.4.1)
+
+**Merged pull requests:**
+
+- Add git checks to npm release [\#24](https://github.com/TechnologyAdvice/ta-scripts/pull/24) ([levithomason](https://github.com/levithomason))
+
 ## [v2.4.0](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.4.0) (2016-06-21)
 [Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.3.3...v2.4.0)
 
