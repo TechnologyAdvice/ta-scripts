@@ -17,5 +17,5 @@ deployment:
     commands:
       - git config --global user.email "devteam+deweybot@technologyadvice.com"
       - git config --global user.name "deweybot"
-      - node cli.js npm/auto-release
       - node cli.js circle_ci/create_changelog
+      - node cli.js npm/auto-release
