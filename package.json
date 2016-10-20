@@ -1,6 +1,6 @@
 {
   "name": "ta-scripts",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "CI/CD scripts",
   "main": "index.js",
   "bin": {
