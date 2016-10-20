@@ -65,8 +65,13 @@ To test your scripts, run them with the cli:
 
 ### Releasing
 
-On the latest clean `master`:
+This project is released automatically using it's own [`npm/auto-release`][1] script and versioned according to [Angular Git Commit guidelines][2].
+
+For manual releases, on the latest clean `master`:
 
     npm run release:major
     npm run release:minor
     npm run release:patch
+
+[1]: https://github.com/TechnologyAdvice/ta-scripts/blob/master/npm/auto-release.js
+[2]: https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit
