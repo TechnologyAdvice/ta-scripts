@@ -1,5 +1,8 @@
 # Change Log
 
+## [v2.5.2](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.5.2) (2016-10-20)
+[Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.5.1...v2.5.2)
+
 ## [v2.5.1](https://github.com/TechnologyAdvice/ta-scripts/tree/v2.5.1) (2016-10-19)
 [Full Changelog](https://github.com/TechnologyAdvice/ta-scripts/compare/v2.5.0...v2.5.1)
 
