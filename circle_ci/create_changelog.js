@@ -100,7 +100,8 @@ const commitAndPush = () => Promise.resolve()
     if (changelogWasUpdated) {
       childProcess.execSync("git add CHANGELOG.md")
       childProcess.execSync(`git commit -n -m 'update CHANGELOG.md by ${CIRCLE_USERNAME} [ci skip]'`)
-      childProcess.execSync(`git push -f origin ${CIRCLE_BRANCH}`)
+      childProcess.execSync(`git rebase origin ${CIRCLE_BRANCH}`)
+      childProcess.execSync(`git push origin ${CIRCLE_BRANCH}`)
     } else {
       log('Will not push changelog, it has not changed.')
     }
